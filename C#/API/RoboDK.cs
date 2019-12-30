@@ -51,8 +51,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Windows.Media;
 using Microsoft.Win32;
+#if NETCORE
+using System.Drawing;
+#else
+using System.Windows.Media;
+#endif
 using RoboDk.API.Exceptions;
 using RoboDk.API.Model;
 
@@ -958,15 +962,15 @@ namespace RoboDk.API
         /// <inheritdoc />
         public IItem AddShape(Mat trianglePoints, IItem addTo = null, bool shapeOverride = false, Color? color = null)
         {
-            RequireBuild(5449);
-            Color clr = color?? Color.FromRgb(127,127,127);
+            RequireBuild(buildRequired: 5449);
+            var clr = color?? Color.FromArgb( 255, 127, 127, 127);
             var colorArray = clr.ToRoboDKColorArray();
             check_connection();
-            send_line("AddShape3");
-            send_matrix(trianglePoints);
-            send_item(addTo);
-            send_int(shapeOverride ? 1 : 0);
-            send_array(colorArray);
+            send_line(line: "AddShape3");
+            send_matrix(mat: trianglePoints);
+            send_item(item: addTo);
+            send_int(number: shapeOverride ? 1 : 0);
+            send_array(values: colorArray);
             ReceiveTimeout = 3600 * 1000;
             var newitem = rec_item();
             ReceiveTimeout = DefaultSocketTimeoutMilliseconds;

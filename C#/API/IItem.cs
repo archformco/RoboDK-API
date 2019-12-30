@@ -42,7 +42,11 @@
 
 using System;
 using System.Collections.Generic;
+#if NETCORE
+using System.Drawing;
+#else
 using System.Windows.Media;
+#endif
 using RoboDk.API.Model;
 
 #endregion

@@ -43,7 +43,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if NETCORE
+using System.Drawing;
+#else
 using System.Windows.Media;
+#endif
 using RoboDk.API.Exceptions;
 using RoboDk.API.Model;
 
@@ -573,15 +577,15 @@ namespace RoboDk.API
         /// <inheritdoc />
         public void Recolor(Color tocolor, Color? fromcolor = null, double tolerance = 0.1)
         {
-            double[] tocolorArray = tocolor.ToRoboDKColorArray();
+            var tocolorArray = tocolor.ToRoboDKColorArray();
             Link.check_connection();
             if (fromcolor.HasValue == false)
             {
-                fromcolor = new Color {A = 0, R = 0, G = 0, B = 0};
+                fromcolor = Color.FromArgb(0,0,0,0 );
                 tolerance = 2;
             }
 
-            double[] fromcolorArray = fromcolor.Value.ToRoboDKColorArray();
+            var fromcolorArray = fromcolor.Value.ToRoboDKColorArray();
 
             Link.check_color(tocolorArray);
             Link.check_color(fromcolorArray);
@@ -1723,6 +1727,6 @@ namespace RoboDk.API
             Link.Finish();
         }
 
-        #endregion
+#endregion
     }
 }
