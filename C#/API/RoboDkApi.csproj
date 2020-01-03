@@ -4,8 +4,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   
-  <!-- net45; -->
-  
   <PropertyGroup>
     <TargetFrameworks>net45;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
@@ -15,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="docfx.console" Version="2.48.0">
+    <!-- PackageReference Include="docfx.console" Version="2.48.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    </PackageReference -->
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   
