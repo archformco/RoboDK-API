@@ -3267,7 +3267,11 @@ bool RoboDK::EmbedWindow(QString window_name, QString docked_name, int size_w, i
     _send_Line("WinProcDock");
     _send_Line(docked_name);
     _send_Line(window_name);
-    double sizeArray[2] = {size_w, size_h};
+
+    // make it work with old compilers
+    // double sizeArray[2] = {size_w, size_h};
+    double sizeArray[2] = {(double)size_w, (double)size_h};
+
     _send_Array(sizeArray,2);
     _send_Line(QString::number(pid));
     _send_Int(area_allowed);
